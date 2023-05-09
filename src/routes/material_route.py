@@ -24,7 +24,7 @@ async def add_material_record(title: str = Form(...), rating: float = Form(...),
                               cost_price: float = Form(...),
                               discount: float = Form(...),
                               in_file: UploadFile = File(...),
-
+                              additional_fee: float = Form(...),
                               ):
     random_name = uuid.uuid4()
     async with aiofiles.open(f"uploads/materials_photo/{random_name}.jpg", "wb") as out_file:
@@ -36,6 +36,7 @@ async def add_material_record(title: str = Form(...), rating: float = Form(...),
                                      "cost_price": cost_price,
                                      "discount": discount,
                                      "thumbnail_url": photo_url,
+                                     "additional_fee": additional_fee
                                      })
 
     return {"code": 200, "message": "Successfully added"}
@@ -62,6 +63,7 @@ async def update_material(material_id: str, title: str = Form(None),
                           delivery_time: str = Form(None),
                           cost_price: float = Form(None),
                           discount: float = Form(None),
+                          additional_fee: float = Form(None),
                           in_file: UploadFile = File(None),
                           ):
     material = materials_collection.find_one({"_id": ObjectId(material_id)})
@@ -87,6 +89,10 @@ async def update_material(material_id: str, title: str = Form(None),
     if discount:
         materials_collection.update_one({"_id": ObjectId(material_id)}, {"$set": {"discount": discount}})
         material["discount"] = discount
+
+    if additional_fee:
+        materials_collection.update_one({"_id": ObjectId(material_id)}, {"$set": {"additional_fee": discount}})
+        material["additional_fee"] = discount
 
     if in_file:
         random_name = uuid.uuid4()
