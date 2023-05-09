@@ -9,7 +9,7 @@ from src.routes.purchase_route import router as purchase_router
 from src.routes.order_route import router as order_router
 from src.routes.truck_route import router as truck_router
 
-app = FastAPI()
+app = FastAPI(title="buildersPOINT")
 
 app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
 
