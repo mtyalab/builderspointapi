@@ -2,7 +2,6 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.staticfiles import StaticFiles
 
-from src.models import purchase
 from src.routes.index_route import router as index_router
 from src.routes.user_route import router as user_router
 from src.routes.material_route import router as material_router
@@ -14,7 +13,7 @@ app = FastAPI()
 
 app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
 
-origins = ["http://localhost", "http://localhost:4200", "https://"]
+origins = ["http://localhost", "http://localhost:4200"]
 
 app.add_middleware(
     CORSMiddleware,
