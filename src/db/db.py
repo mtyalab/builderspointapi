@@ -25,6 +25,10 @@ def get_purchase_collection() -> Collection:
     return client[DB_NAME]["purchases"]
 
 
+def get_order_collection() -> Collection:
+    return client[DB_NAME]["orders"]
+
+
 def get_reset_password_request_collection() -> Collection:
     return client[DB_NAME]["reset_password_request"]
 
