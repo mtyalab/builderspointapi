@@ -8,5 +8,4 @@ class Material(BaseModel):
     thumbnail_url: str
     cost_price: float
     discount: float
-    truck_no: str
-    order_no: str
+    additional_fees: float

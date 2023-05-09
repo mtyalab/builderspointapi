@@ -13,6 +13,9 @@ class Purchase(BaseModel):
     rating: int
     delivery_time: str
     cost_price: float
+    additional_fee: float
+    order_no: str
+    truck_no: str
     discount: float
     user_id: str
     purchase_date: datetime = datetime.now()

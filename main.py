@@ -7,12 +7,13 @@ from src.routes.index_route import router as index_router
 from src.routes.user_route import router as user_router
 from src.routes.material_route import router as material_router
 from src.routes.purchase_route import router as purchase_router
+from src.routes.truck_route import router as truck_router
 
 app = FastAPI()
 
 app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
 
-origins = ["http://localhost", "http://localhost:4200"]
+origins = ["http://localhost", "http://localhost:4200", "https://"]
 
 app.add_middleware(
     CORSMiddleware,
@@ -26,3 +27,4 @@ app.include_router(index_router)
 app.include_router(user_router)
 app.include_router(material_router)
 app.include_router(purchase_router)
+app.include_router(truck_router)

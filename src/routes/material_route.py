@@ -9,7 +9,6 @@ from gridfs import GridFS
 from src.db.db import get_material_collection, get_db
 import aiofiles
 
-
 router = APIRouter()
 
 db = get_db()
@@ -25,8 +24,7 @@ async def add_material_record(title: str = Form(...), rating: float = Form(...),
                               cost_price: float = Form(...),
                               discount: float = Form(...),
                               in_file: UploadFile = File(...),
-                              truck_no: str = Form(...),
-                              order_no: str = Form(...),
+
                               ):
     random_name = uuid.uuid4()
     async with aiofiles.open(f"uploads/materials_photo/{random_name}.jpg", "wb") as out_file:
@@ -38,8 +36,7 @@ async def add_material_record(title: str = Form(...), rating: float = Form(...),
                                      "cost_price": cost_price,
                                      "discount": discount,
                                      "thumbnail_url": photo_url,
-                                     "truck_no": truck_no,
-                                     "order_no": order_no})
+                                     })
 
     return {"code": 200, "message": "Successfully added"}
 
@@ -66,8 +63,7 @@ async def update_material(material_id: str, title: str = Form(None),
                           cost_price: float = Form(None),
                           discount: float = Form(None),
                           in_file: UploadFile = File(None),
-                          order_no: str = Form(None),
-                          truck_no: str = Form(None),):
+                          ):
     material = materials_collection.find_one({"_id": ObjectId(material_id)})
     if not material:
         raise HTTPException(status_code=404, detail="Material not found")
@@ -83,15 +79,6 @@ async def update_material(material_id: str, title: str = Form(None),
     if delivery_time:
         materials_collection.update_one({"_id": ObjectId(material_id)}, {"$set": {"delivery_time": delivery_time}})
         material["delivery_time"] = delivery_time
-
-    if order_no:
-        materials_collection.update_one({"_id": ObjectId(material_id)}, {"$set": {"order_no": order_no}})
-        material["order_no"] = delivery_time
-
-    if truck_no:
-        materials_collection.update_one({"_id": ObjectId(material_id)}, {"$set": {"truck_no": truck_no}})
-        material["truck_no"] = delivery_time
-
 
     if cost_price:
         materials_collection.update_one({"_id": ObjectId(material_id)}, {"$set": {"cost_price": cost_price}})

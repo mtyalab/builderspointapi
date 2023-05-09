@@ -31,3 +31,7 @@ def get_reset_password_request_collection() -> Collection:
 
 def get_reset_password_confirm_collection() -> Collection:
     return client[DB_NAME]["reset_password_confirm"]
+
+
+def get_trucks_collection() -> Collection:
+    return client[DB_NAME]["trucks"]
