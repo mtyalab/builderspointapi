@@ -21,6 +21,10 @@ def get_material_collection() -> Collection:
     return client[DB_NAME]["materials"]
 
 
+def get_credit_card_collection() -> Collection:
+    return client[DB_NAME]["credit_cards"]
+
+
 def get_purchase_collection() -> Collection:
     return client[DB_NAME]["purchases"]
 

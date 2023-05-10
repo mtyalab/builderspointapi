@@ -8,6 +8,7 @@ from src.routes.material_route import router as material_router
 from src.routes.purchase_route import router as purchase_router
 from src.routes.order_route import router as order_router
 from src.routes.truck_route import router as truck_router
+from src.routes.credit_card_route import router as credit_router
 
 app = FastAPI(title="buildersPOINT")
 
@@ -29,3 +30,4 @@ app.include_router(material_router)
 app.include_router(purchase_router)
 app.include_router(truck_router)
 app.include_router(order_router)
+app.include_router(credit_router)
