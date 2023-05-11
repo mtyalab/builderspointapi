@@ -78,3 +78,12 @@ async def reset_password_confirm(req: ResetPasswordConfirm):
     user_collection.update_one({"_id": user["_id"]}, {"$set": {"password": hashed_password, "reset_code": ""}})
 
     return json_serialize(user)
+
+
+@router.get("/user/all")
+async def get_all_users():
+    try:
+        users = list(user_collection.find())
+        return json_serialize(users)
+    except Exception as e:
+        return {"code": 500, "message": "Failed to retrieve trucks", "error": str(e)}
