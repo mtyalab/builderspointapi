@@ -1,7 +1,8 @@
 import random
 import string
 
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
+from starlette.responses import JSONResponse
 
 from src.models.reset_password import ResetPasswordRequest, ResetPasswordConfirm
 from src.models.user import User, UserLogin
@@ -45,11 +46,11 @@ async def login_user(user_login: UserLogin):
         if bcrypt.checkpw(user_login.password.encode("utf-8"), hashed_password):
             # Create a new User object from the user_dict and return it
             user = User(**user_dict)
-            return json_serialize(user)
+            return JSONResponse(content={"code": 200, "message": "Login successful", "user": user.dict()})
         else:
-            return {"code": 400, "message": "Invalid password"}
+            return HTTPException(status_code=400, detail="Invalid password")
     else:
-        return {"code": 400, "message": "User not found"}
+        return HTTPException(status_code=400, detail="User not found")
 
 
 @router.post("/user/reset_password")
