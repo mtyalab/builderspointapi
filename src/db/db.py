@@ -41,5 +41,9 @@ def get_reset_password_confirm_collection() -> Collection:
     return client[DB_NAME]["reset_password_confirm"]
 
 
+def get_rating_collection() -> Collection:
+    return client[DB_NAME]["rating"]
+
+
 def get_trucks_collection() -> Collection:
     return client[DB_NAME]["trucks"]
