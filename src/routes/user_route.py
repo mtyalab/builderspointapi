@@ -46,7 +46,7 @@ async def login_user(user_login: UserLogin):
         if bcrypt.checkpw(user_login.password.encode("utf-8"), hashed_password):
             # Create a new User object from the user_dict and return it
             user = User(**user_dict)
-            return JSONResponse(content={json_serialize(user.dict())})
+            return user.dict()
         else:
             return HTTPException(status_code=400, detail="Invalid password")
     else:
