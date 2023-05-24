@@ -66,7 +66,7 @@ async def mobile_money_payment(amount: str, phone_number: str, email: str):
         "amount": amount,
         "email": email,
         "phonenumber": phone_number,
-        "redirect_url": "",
+        "redirect_url": "https:/builderpoint.ug",
         "IP": ""
     }
 

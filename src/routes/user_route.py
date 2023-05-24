@@ -44,9 +44,10 @@ async def login_user(user_login: UserLogin):
         # Verify that the provided password matches the hashed password in the user document
         hashed_password = user_dict["password"]
         if bcrypt.checkpw(user_login.password.encode("utf-8"), hashed_password):
-            # Create a new User object from the user_dict and return it
+            # Create a new User object from the user_dict, including the user _id field and return it
+            user_dict["_id"] = str(user_dict["_id"])
             user = User(**user_dict)
-            return user.dict()
+            return {"_id": user_dict["_id"], **user.dict()}
         else:
             return HTTPException(status_code=400, detail="Invalid password")
     else:
