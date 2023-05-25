@@ -1,3 +1,4 @@
+import os
 from bson import ObjectId
 from fastapi import APIRouter
 
@@ -5,7 +6,6 @@ from src.db.db import get_purchase_collection, get_db
 
 from src.models.purchase import Purchase
 from src.schemas.purchase_edit import PurchaseEdit
-from src.utils.auth_keys import PUBLIC_KEY, SECRET_KEY
 from src.utils.json_serialize import json_serialize
 from rave_python import Rave, RaveExceptions, Misc
 
@@ -13,8 +13,15 @@ router = APIRouter()
 
 db = get_db()
 
+os.environ['PUBLIC_KEY'] = 'FLWPUBK-250e4f80e06facd3ce6d9da317a7140b-X'
+os.environ['SECRET_KEY'] = 'FLWSECK-d3652619e3f35b47705973eb80a4b3d8-18850fcbb65vt-X'
+
+public_key = os.getenv('PUBLIC_KEY')
+secret_key = os.getenv('SECRET_KEY')
+
 purchase_collection = get_purchase_collection()
-rave = Rave(PUBLIC_KEY, SECRET_KEY, usingEnv=False)
+rave = Rave(public_key, secret_key,
+            production=True, usingEnv=False)
 
 
 @router.post("/purchase/add")
