@@ -1,4 +1,5 @@
 import os
+import time
 from bson import ObjectId
 from fastapi import APIRouter
 
@@ -67,28 +68,30 @@ async def list_purchases_by_selected_user(user_id: str):
 
 
 @router.post("/purchase/mobile_money_payment/charge")
-async def mobile_money_payment(amount: str, phone_number: str, email: str):
+async def mobile_money_payment(amount: str, phone_number: str, email: str, network: str):
     # Mobile payload
     payload = {
+        "phonenumber": phone_number,
+        "network": network,
         "amount": amount,
         "email": email,
-        "phonenumber": phone_number,
-        "redirect_url": "https:/builderpoint.ug",
+        "tx_ref": generate_transaction_reference(),
         "IP": ""
     }
 
     try:
         res = rave.UGMobile.charge(payload)
-        res = rave.UGMobile.verify(res["txRef"])
-        print(res)
+        tx_ref = generate_transaction_reference()
+        print("TX REF:", tx_ref)
+        print("RES:", res)
+        print("LINK:", res['link'])
+        return res
 
     except RaveExceptions.TransactionChargeError as e:
-        print(e.err)
-        print(e.err["flwRef"])
+        return e.err
 
     except RaveExceptions.TransactionVerificationError as e:
-        print(e.err["errMsg"])
-        print(e.err["txRef"])
+        return e.err["errMsg"]
 
 
 @router.post("/purchase/card_payment/charge")
@@ -140,3 +143,12 @@ async def card_payments(card_no: str, cvv: str, expiry_month: str,
 
     except RaveExceptions.TransactionVerificationError as e:
         return e.err["errMsg"]
+
+
+def generate_transaction_reference(merchant_id=None):
+    rawTime = round(time.time() * 1000)
+    timestamp = int(rawTime)
+    if merchant_id:
+        return merchant_id + "_" + str(timestamp)
+    else:
+        return "MC-" + str(timestamp)

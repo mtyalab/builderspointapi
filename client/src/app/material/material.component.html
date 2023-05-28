@@ -1,0 +1,71 @@
+    <div class="layout-wrapper" [ngClass]="containerClass">
+     <app-topbar></app-topbar>
+      <div class="layout-sidebar">
+        <app-sidebar></app-sidebar>
+    </div>
+
+      <div class="layout-main-container">
+        <div class="layout-main">
+
+<div class="grid">
+	<div class="col-12">
+		<div class="card">
+
+                <div class="flex justify-content-between flex-wrap card-container purple-container">
+        <div class="flex align-items-center justify-content-center">
+            <h5>Materials</h5>
+        </div>
+
+        <div class="flex align-items-center justify-content-center">
+				<button pButton pRipple type="button" label="Add New" icon="pi pi-plus" class="p-button-info"></button>
+
+        </div>
+    </div>
+
+			<p-table [value]="materials" scrollDirection="both" [scrollable]="true" scrollHeight="400px" styleClass="mt-3" responsiveLayout="scroll">
+				<ng-template pTemplate="header">
+					<tr>
+						<th class="xc-200px">Title</th>
+						<th class="xc-200px">Rating</th>
+						<th class="xc-200px">Delivery Time</th>
+						<th class="xc-200px">Thumbnail</th>
+						<th class="xc-200px">Cost Price (UGX)</th>
+						<th class="xc-200px">Discount (UGX)</th>
+						<th class="xc-200px">Actions</th>
+					</tr>
+				</ng-template>
+				<ng-template pTemplate="body"  let-material>
+					<tr>
+						<td class="xc-200px">{{material.title}}</td>
+						<td class="xc-200px">{{material.rating}}</td>
+						<td class="xc-200px">
+{{material.delivery_time}}
+						</td>
+						<td class="xc-200px">
+							<img src="{{ apiUrl.serverUrl +'/' + material.thumbnail_url}}"  width="32" style="vertical-align: middle">
+						</td>
+						<td class="xc-200px">{{material.cost_price}}</td>
+						<td class="xc-200px">
+							{{material.discount}}
+						</td>
+
+						<td class="xc-200px">
+          <div class="flex">
+                                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-info mr-2"></button>
+                                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-info"></button>
+                            </div>
+						</td>
+					</tr>
+				</ng-template>
+			</p-table>
+		</div>
+	</div>
+</div>
+
+
+        </div>
+        <app-footer></app-footer>
+    </div>
+    <div class="layout-mask"></div>
+
+    </div>
