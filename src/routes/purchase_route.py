@@ -61,8 +61,8 @@ async def list_purchases():
 @router.get("/purchase/user_id")
 async def list_purchases_by_selected_user(user_id: str):
     try:
-        purchases = list(purchase_collection.find_one({"user_id": ObjectId(user_id)}))
-        return json_serialize(purchases)
+        purchases = purchase_collection.find({"user_id": user_id})
+        return json_serialize(list(purchases))
     except Exception as e:
         return {"code": 500, "message": "Failed to retrieve users' purchases", "error": str(e)}
 
