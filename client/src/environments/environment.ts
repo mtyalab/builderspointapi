@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  serverUrl: "https://radiant-bayou-37411.herokuapp.com"
+  serverUrl: "http://localhost:8000"
 };
 
 /*
