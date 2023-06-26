@@ -32,8 +32,7 @@ export class MaterialComponent implements  OnInit {
   getAllMaterials() {
     this.materialService.getMaterials().subscribe((response) => {
        this.materials = response['data'];
-       console.log(this.materials);
-    }, err => console.log(err));
+    }, err => alert(err));
   }
 
   get containerClass() {

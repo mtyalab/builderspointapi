@@ -23,12 +23,10 @@ export class LoginComponent implements OnInit {
     }
 
     onSubmit(): void {
-        console.warn(this.loginForm.value);
         this.userService.login(
             this.loginForm.value['email'],
             this.loginForm.value['password'])
             .subscribe((data) => {
-                console.log(data);
                 if (data['role'] === 'CLIENT') {
                     alert('Unauthorized access');
                   return;

@@ -1,26 +1,50 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Product} from "../domain/product";
 import {MenuItem} from "primeng/api";
 import {Subscription} from "rxjs";
 import {ProductService} from "../services/productservice";
 import {LayoutService} from "../layout/service/app.layout.service";
+import {OrdersService} from "../services/orders.service";
+import {MaterialsService} from "../services/materials.service";
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
    items!: MenuItem[];
 
     subscription!: Subscription;
+    ordersCount: number;
+    materialsCount: number;
 
-    constructor(public layoutService: LayoutService) {
+    constructor(public layoutService: LayoutService,
+                private orderService: OrdersService,
+                private materialService: MaterialsService) {
 
     }
 
     ngOnInit() {
+     this.getOrdersCount();
+     this.getMaterialsCount();
+    }
 
+    getOrdersCount() {
+        this.orderService.getOrders().subscribe((response)=> {
+            this.ordersCount = response.length;
+        }, err => {
+            alert(err);
+        });
+    }
+
+
+    getMaterialsCount() {
+        this.materialService.getMaterials().subscribe((response)=> {
+            this.materialsCount = response['data'].length;
+        }, err => {
+            alert(err);
+        });
     }
 
 
