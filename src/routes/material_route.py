@@ -28,7 +28,10 @@ async def add_material_record(title: str = Form(...), rating: float = Form(...),
                               ):
     random_name = uuid.uuid4()
     async with aiofiles.open(f"uploads/materials_photo/{random_name}.jpg", "wb") as out_file:
-        while content := await in_file.read(1024):  # async read chunk
+        while True:
+            content = await in_file.read(1024)
+            if not content:
+                break
             await out_file.write(content)
 
     photo_url = f"uploads/materials_photo/{random_name}.jpg"
@@ -97,7 +100,10 @@ async def update_material(material_id: str, title: str = Form(None),
     if in_file:
         random_name = uuid.uuid4()
         async with aiofiles.open(f"uploads/materials_photo/{random_name}.jpg", "wb") as out_file:
-            while content := await in_file.read(1024):
+            while True:
+                content = await in_file.read(1024)
+                if not content:
+                    break
                 await out_file.write(content)
 
         thumbnail_url = f"uploads/materials_photo/{random_name}.jpg"
