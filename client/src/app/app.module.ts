@@ -37,6 +37,8 @@ import {AppLayoutModule} from "./layout/app.layout.module";
 import {AppConfigModule} from "./layout/config/config.module";
 import {ToggleButtonModule} from "primeng/togglebutton";
 import {SplitButtonModule} from "primeng/splitbutton";
+import { AddComponent } from './material/add/add.component';
+import { UpdateComponent } from './material/update/update.component';
 
 
 @NgModule({
@@ -51,6 +53,8 @@ import {SplitButtonModule} from "primeng/splitbutton";
         RatingComponent,
         TruckComponent,
         UserComponent,
+        AddComponent,
+        UpdateComponent,
     ],
     imports: [
         BrowserModule,

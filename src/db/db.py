@@ -1,8 +1,8 @@
 from pymongo import MongoClient
 from pymongo.collection import Collection
 
-DB_URL = "mongodb://127.0.0.1:27017"
-# DB_URL = "mongodb+srv://kmuytab:uhWoBXXxST95W6Wz@cluster0.mwciw0w.mongodb.net/"
+# DB_URL = "mongodb://127.0.0.1:27017"
+DB_URL = "mongodb+srv://kmuytab:uhWoBXXxST95W6Wz@cluster0.mwciw0w.mongodb.net/"
 DB_NAME = "builders_point_db"
 client = MongoClient(DB_URL, maxPoolSize=70)
 
